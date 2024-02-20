@@ -1,8 +1,12 @@
-import Container from '../components/container';
+import { Helmet } from 'react-helmet-async';
+import Layout from '../components/layout';
 
-export default function FavoritesPage() {
+function FavoritesPage() {
   return (
-    <Container classMain="page__main--favorites">
+    <Layout classMain="page__main--favorites">
+      <Helmet>
+        <title>6 cities: favorites</title>
+      </Helmet>
       <div className="page__favorites-container container">
         <section className="favorites">
           <h1 className="favorites__title">Saved listing</h1>
@@ -173,6 +177,8 @@ export default function FavoritesPage() {
           </ul>
         </section>
       </div>
-    </Container>
+    </Layout>
   );
 }
+
+export default FavoritesPage;

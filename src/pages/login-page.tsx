@@ -1,11 +1,12 @@
-import Container from '../components/container';
+import { Helmet } from 'react-helmet-async';
+import Layout from '../components/layout';
 
-export default function LoginPage() {
+function LoginPage() {
   return (
-    <Container
-      extraClass="page--gray page--login"
-      classMain="page__main--login"
-    >
+    <Layout extraClass="page--gray page--login" classMain="page__main--login">
+      <Helmet>
+        <title>6 cities: authorization</title>
+      </Helmet>
       <div className="page__login-container container">
         <section className="login">
           <h1 className="login__title">Sign in</h1>
@@ -43,6 +44,8 @@ export default function LoginPage() {
           </div>
         </section>
       </div>
-    </Container>
+    </Layout>
   );
 }
+
+export default LoginPage;
