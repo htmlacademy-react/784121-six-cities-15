@@ -1,13 +1,13 @@
 import Card from '../components/card';
-import Container from '../components/container';
+import Layout from '../components/layout';
 
 type TMainPageProps = {
   cards: string[];
 };
 
-export default function MainPage({ cards }: TMainPageProps) {
+function MainPage({ cards }: TMainPageProps) {
   return (
-    <Container classMain="page__main--index" extraClass="page--gray page--main">
+    <Layout classMain="page__main--index" extraClass="page--gray page--main">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
@@ -91,6 +91,8 @@ export default function MainPage({ cards }: TMainPageProps) {
           </div>
         </div>
       </div>
-    </Container>
+    </Layout>
   );
 }
+
+export default MainPage;

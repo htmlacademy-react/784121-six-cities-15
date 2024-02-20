@@ -8,11 +8,7 @@ type TContainerProps = {
   classMain?: string;
 };
 
-export default function Container({
-  children,
-  extraClass,
-  classMain,
-}: TContainerProps) {
+function Layout({ children, extraClass, classMain }: TContainerProps) {
   return (
     <div className={clsx('page', extraClass)}>
       <Header />
@@ -20,3 +16,5 @@ export default function Container({
     </div>
   );
 }
+
+export default Layout;
