@@ -8,34 +8,38 @@ import FavoritesPage from './pages/favorites-page';
 import OfferPage from './pages/offer-page';
 import LoginPage from './pages/login-page';
 import PrivateRoute from './components/private-route';
+import { OFFERS } from './mocks/offers';
+import Layout from './components/layout';
 
-const OFFERS_IDS = ['1', '2'];
+type TAppProps = {
+  hasAccess?: boolean;
+};
 
-function App() {
+function App({ hasAccess }: TAppProps) {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route path={AppRoutes.Main}>
-            <Route
-              index
-              element={<MainPage cards={Array.from({ length: 5 }, () => '')} />}
-            />
+          <Route
+            path={AppRoutes.Main}
+            element={<Layout hasAccess={hasAccess} />}
+          >
+            <Route index element={<MainPage offers={OFFERS} />} />
             <Route
               path={AppRoutes.Favorites}
               element={
-                <PrivateRoute>
-                  <FavoritesPage />
+                <PrivateRoute hasAccess={hasAccess}>
+                  <FavoritesPage offers={OFFERS} />
                 </PrivateRoute>
               }
             />
             <Route
-              path={AppRoutes.Offer}
-              element={<OfferPage offers={OFFERS_IDS} />}
+              path={`${AppRoutes.Offer}/:id`}
+              element={<OfferPage offers={OFFERS} />}
             />
             <Route path={AppRoutes.Login} element={<LoginPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
-          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
