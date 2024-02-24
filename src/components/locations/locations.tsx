@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { LOCATIONS } from '../const';
 
 function Locations() {
@@ -5,9 +6,16 @@ function Locations() {
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {LOCATIONS.map((location) => (
+          {LOCATIONS.map((location, idx) => (
             <li key={location} className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
+              <a
+                className={clsx(
+                  `locations__item-link tabs__item ${
+                    idx === 3 && 'tabs__item--active'
+                  }`
+                )}
+                href="#"
+              >
                 <span>{location}</span>
               </a>
             </li>
