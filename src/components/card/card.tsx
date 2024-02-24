@@ -3,23 +3,20 @@ import clsx from 'clsx';
 import { AppRoutes } from '../const';
 import { OfferPreview } from '../../types/offer-preview';
 import PremiumBadge from '../premium-badge';
-import { getLayoutState } from './helpers';
+import { getImageSize, getLayoutState } from './helpers';
 import getRating from '../utils';
+import { Size } from '../../types/size';
 
 type TCardProps = {
   offer: OfferPreview;
+  size?: Size;
 };
 
-function Card({ offer }: TCardProps) {
+function Card({ offer, size = 'large' }: TCardProps) {
   const { isPremium, price, title, type, rating, previewImage } = offer;
   const { pathname } = useLocation();
-  const {
-    cardClassName,
-    imageWrapperClassName,
-    cardInfoClassName,
-    imageWidth,
-    imageHeight,
-  } = getLayoutState(pathname as AppRoutes);
+  const { cardClassName, imageWrapperClassName, cardInfoClassName } =
+    getLayoutState(pathname as AppRoutes);
   const displayedRating = getRating({ rating });
 
   return (
@@ -35,8 +32,7 @@ function Card({ offer }: TCardProps) {
           <img
             className="place-card__image"
             src={previewImage}
-            width={imageWidth ? imageWidth : 260}
-            height={imageHeight ? imageHeight : 200}
+            {...getImageSize(size)}
             alt="Place image"
           />
         </Link>

@@ -20,7 +20,7 @@ function FavoritesItem({ offers, city }: TFavoritesItemProps) {
         {offers
           .filter((offer) => offer.city.name === city)
           .map((item) => (
-            <Card key={item.id} offer={item} />
+            <Card key={item.id} offer={item} size="small" />
           ))}
       </div>
     </li>
