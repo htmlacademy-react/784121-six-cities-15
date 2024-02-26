@@ -7,11 +7,11 @@ type TLogoProps = {
 };
 
 function Logo({ activeLogoClassName }: TLogoProps) {
-  return (
+  return !activeLogoClassName ? (
     <Link
       className={clsx(
         'header__logo-link',
-        activeLogoClassName ? 'header__logo-link--active' : ''
+        activeLogoClassName && 'header__logo-link--active'
       )}
       to={AppRoutes.Main}
     >
@@ -23,6 +23,21 @@ function Logo({ activeLogoClassName }: TLogoProps) {
         height={41}
       />
     </Link>
+  ) : (
+    <a
+      className={clsx(
+        'header__logo-link',
+        activeLogoClassName && 'header__logo-link--active'
+      )}
+    >
+      <img
+        className="header__logo"
+        src="img/logo.svg"
+        alt="6 cities logo"
+        width={81}
+        height={41}
+      />
+    </a>
   );
 }
 
