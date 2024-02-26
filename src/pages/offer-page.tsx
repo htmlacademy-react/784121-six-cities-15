@@ -20,8 +20,8 @@ type TOfferPageProps = {
 };
 
 function OfferPage({ offers }: TOfferPageProps) {
-  const params = useParams();
-  const offer = offers.find((item) => item.id === params.id);
+  const { id } = useParams();
+  const offer = offers.find((item) => item.id === id);
 
   return offer ? (
     <main className="page__main page__main--offer">
