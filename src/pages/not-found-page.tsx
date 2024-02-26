@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import { AppRoutes } from '../components/const';
-import Layout from '../components/layout';
 import { Helmet } from 'react-helmet-async';
 
 function NotFoundPage() {
   return (
-    <Layout>
+    <main className="page__main">
       <Helmet>
         <title>Страница не найдена!</title>
       </Helmet>
@@ -15,7 +14,7 @@ function NotFoundPage() {
           Вернуться на главную
         </Link>
       </div>
-    </Layout>
+    </main>
   );
 }
 

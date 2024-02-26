@@ -1,9 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import Layout from '../components/layout';
 
 function LoginPage() {
   return (
-    <Layout extraClass="page--gray page--login" classMain="page__main--login">
+    <main className="page__main page__main--login">
       <Helmet>
         <title>6 cities: authorization</title>
       </Helmet>
@@ -44,7 +43,7 @@ function LoginPage() {
           </div>
         </section>
       </div>
-    </Layout>
+    </main>
   );
 }
 

@@ -1,97 +1,37 @@
-import Card from '../components/card';
-import Layout from '../components/layout';
+import Locations from '../components/locations/locations';
+import Map from '../components/map';
+import PlacesList from '../components/places-list';
+import Sorting from '../components/sorting';
+import { OfferPreview } from '../types/offer-preview';
 
 type TMainPageProps = {
-  cards: string[];
+  offers: OfferPreview[];
 };
 
-function MainPage({ cards }: TMainPageProps) {
+function MainPage({ offers }: TMainPageProps) {
   return (
-    <Layout classMain="page__main--index" extraClass="page--gray page--main">
+    <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
-      <div className="tabs">
-        <section className="locations container">
-          <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
-          </ul>
-        </section>
-      </div>
+      <Locations />
       <div className="cities">
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">
-              {cards.length} places to stay in Amsterdam
+              {offers.length} places to stay in Amsterdam
             </b>
-            <form className="places__sorting" action="#" method="get">
-              <span className="places__sorting-caption">Sort by</span>
-              <span className="places__sorting-type" tabIndex={0}>
-                Popular
-                <svg className="places__sorting-arrow" width={7} height={4}>
-                  <use xlinkHref="#icon-arrow-select" />
-                </svg>
-              </span>
-              <ul className="places__options places__options--custom places__options--opened">
-                <li
-                  className="places__option places__option--active"
-                  tabIndex={0}
-                >
-                  Popular
-                </li>
-                <li className="places__option" tabIndex={0}>
-                  Price: low to high
-                </li>
-                <li className="places__option" tabIndex={0}>
-                  Price: high to low
-                </li>
-                <li className="places__option" tabIndex={0}>
-                  Top rated first
-                </li>
-              </ul>
-            </form>
-            <div className="cities__places-list places__list tabs__content">
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-            </div>
+            <Sorting />
+            <PlacesList
+              offers={offers}
+              extraClassName="cities__places-list tabs__content"
+            />
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map" />
+            <Map extraClassName="cities__map" />
           </div>
         </div>
       </div>
-    </Layout>
+    </main>
   );
 }
 

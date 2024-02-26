@@ -6,8 +6,10 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+const hasAccess: boolean = true;
+
 root.render(
   <React.StrictMode>
-    <App />
+    <App hasAccess={hasAccess} />
   </React.StrictMode>
 );
