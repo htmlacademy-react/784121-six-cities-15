@@ -26,7 +26,7 @@ function Layout({ hasAccess }: TLayoutProps) {
         hasAccess={hasAccess}
       />
       <Outlet />
-      {shouldRenderFooter ? <Footer /> : null}
+      {shouldRenderFooter && <Footer />}
     </div>
   );
 }

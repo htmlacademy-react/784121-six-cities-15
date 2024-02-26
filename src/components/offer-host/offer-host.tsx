@@ -9,7 +9,7 @@ function OfferHost({ isPro, avatarUrl, name }: Host) {
         <div
           className={clsx(
             `offer__avatar-wrapper ${
-              isPro ? 'offer__avatar-wrapper--pro' : ''
+              isPro && 'offer__avatar-wrapper--pro'
             }  user__avatar-wrapper`
           )}
         >
@@ -22,7 +22,7 @@ function OfferHost({ isPro, avatarUrl, name }: Host) {
           />
         </div>
         <span className="offer__user-name">{name}</span>
-        {isPro ? <span className="offer__user-status">Pro</span> : null}
+        {isPro && <span className="offer__user-status">Pro</span>}
       </div>
     </div>
   );

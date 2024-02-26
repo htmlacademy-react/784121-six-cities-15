@@ -4,11 +4,13 @@ type TPremiumBadgeProps = {
 };
 
 function PremiumBadge({ isPremium, extraClassName }: TPremiumBadgeProps) {
-  return isPremium ? (
-    <div className={extraClassName}>
-      <span>Premium</span>
-    </div>
-  ) : null;
+  return (
+    isPremium && (
+      <div className={extraClassName}>
+        <span>Premium</span>
+      </div>
+    )
+  );
 }
 
 export default PremiumBadge;
