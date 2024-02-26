@@ -18,7 +18,7 @@ function ReviewsForm() {
         {RATING.map((item) => (
           <RatingInput
             key={item.stars}
-            defaultValue={item.stars}
+            value={item.stars}
             title={item.title}
             onChange={({ target }: ChangeEvent<HTMLInputElement>) => {
               setUserAnswer({ ...userAnswer, stars: Number(target.value) });
@@ -31,7 +31,7 @@ function ReviewsForm() {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={''}
+        value={userAnswer.description}
         onChange={({ target }: ChangeEvent<HTMLTextAreaElement>) => {
           setUserAnswer({ ...userAnswer, description: target.value });
         }}

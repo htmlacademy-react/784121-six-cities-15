@@ -1,24 +1,24 @@
 import { ChangeEvent } from 'react';
 
 type TRatingInputProps = {
-  defaultValue: number;
+  value: number;
   onChange: ({ target }: ChangeEvent<HTMLInputElement>) => void;
   title: string;
 };
 
-function RatingInput({ defaultValue, onChange, title }: TRatingInputProps) {
+function RatingInput({ value, onChange, title }: TRatingInputProps) {
   return (
     <>
       <input
         className="form__rating-input visually-hidden"
         name="rating"
-        defaultValue={defaultValue}
-        id={`${defaultValue}-stars`}
+        value={value}
+        id={`${value}-stars`}
         type="radio"
         onChange={onChange}
       />
       <label
-        htmlFor={`${defaultValue}-stars`}
+        htmlFor={`${value}-stars`}
         className="reviews__rating-label form__rating-label"
         title={title}
       >

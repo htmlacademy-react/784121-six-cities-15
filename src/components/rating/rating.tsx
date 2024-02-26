@@ -11,11 +11,11 @@ function Rating({ rating, isOnlyStars, extraClassName }: TOfferRatingProps) {
         <span style={{ width: `${(100 / 5) * rating}%` }} />
         <span className="visually-hidden">Rating</span>
       </div>
-      {isOnlyStars ? (
+      {isOnlyStars && (
         <span className={`${extraClassName}__rating-value rating__value`}>
           {rating}
         </span>
-      ) : null}
+      )}
     </div>
   );
 }
