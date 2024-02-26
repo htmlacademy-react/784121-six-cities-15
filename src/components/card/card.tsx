@@ -4,8 +4,8 @@ import { AppRoutes } from '../const';
 import { OfferPreview } from '../../types/offer-preview';
 import PremiumBadge from '../premium-badge';
 import { getImageSize, getLayoutState } from './helpers';
-import getRating from '../utils';
 import { Size } from '../../types/size';
+import { getRating } from '../utils';
 
 type TCardProps = {
   offer: OfferPreview;
@@ -20,14 +20,9 @@ function Card({ offer, size = 'large' }: TCardProps) {
   const displayedRating = getRating({ rating });
 
   return (
-    <article className={clsx(cardClassName ? cardClassName : '', 'place-card')}>
+    <article className={clsx(cardClassName, 'place-card')}>
       <PremiumBadge isPremium={isPremium} extraClassName="place-card__mark" />
-      <div
-        className={clsx(
-          imageWrapperClassName ? imageWrapperClassName : '',
-          'place-card__image-wrapper'
-        )}
-      >
+      <div className={clsx(imageWrapperClassName, 'place-card__image-wrapper')}>
         <Link to={`${AppRoutes.Offer}/${offer.id}`}>
           <img
             className="place-card__image"
@@ -37,12 +32,7 @@ function Card({ offer, size = 'large' }: TCardProps) {
           />
         </Link>
       </div>
-      <div
-        className={clsx(
-          cardInfoClassName ? cardInfoClassName : '',
-          'place-card__info'
-        )}
-      >
+      <div className={clsx(cardInfoClassName, 'place-card__info')}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">{price}</b>
