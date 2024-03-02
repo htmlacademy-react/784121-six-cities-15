@@ -24,16 +24,6 @@ function OfferPage({ offers }: TOfferPageProps) {
   const offer = offers.find((item) => item.id === id);
   const reviews = REVIEWS.filter((review) => review.offerId === offer?.id);
   const otherPlaces = offers.slice(0, 3);
-  const handleListPointHover = (pointId: string) => {
-    const currentPoint =
-      otherPlaces.find((item) => item.id === pointId) ?? null;
-
-    setSelectedPoint(currentPoint);
-  };
-
-  const handleListPointBlur = () => {
-    setSelectedPoint(null);
-  };
 
   return offer ? (
     <main className="page__main page__main--offer">
@@ -103,8 +93,7 @@ function OfferPage({ offers }: TOfferPageProps) {
           <PlacesList
             offers={otherPlaces}
             extraClassName="near-places__list"
-            onListItemHover={handleListPointHover}
-            onListItemBlur={handleListPointBlur}
+            onCardHover={setSelectedPoint}
           />
         </section>
       </div>
