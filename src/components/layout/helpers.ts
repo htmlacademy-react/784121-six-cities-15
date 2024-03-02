@@ -16,6 +16,7 @@ export const getLayoutState = (pathname: AppRoutes) => {
       pageClassName = 'page--gray page--login';
       break;
     case AppRoutes.Favorites:
+      pageClassName = 'page--favorites-empty';
       shouldRenderFooter = true;
       break;
   }
