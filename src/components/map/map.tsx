@@ -52,13 +52,7 @@ function Map({ extraClassName, city, points, selectedPoint }: TMapProps) {
     }
   }, [currentCustomIcon, defaultCustomIcon, map, points, selectedPoint]);
 
-  return (
-    <section
-      style={{ height: 676 }}
-      className={clsx('map', extraClassName)}
-      ref={mapRef}
-    />
-  );
+  return <section className={clsx('map', extraClassName)} ref={mapRef} />;
 }
 
 export default Map;
