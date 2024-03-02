@@ -5,7 +5,8 @@ import 'leaflet/dist/leaflet.css';
 import useMap from './hooks';
 import { City } from '../../types/city';
 import { Offer } from '../../types/offer';
-import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from './const';
+import Pin from './assets/pin.svg';
+import PinActive from './assets/pin-active.svg';
 
 type TMapProps = {
   extraClassName?: string;
@@ -19,15 +20,15 @@ function Map({ extraClassName, city, points, selectedPoint }: TMapProps) {
   const map = useMap({ city, mapRef });
 
   const defaultCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_DEFAULT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconUrl: Pin,
+    iconSize: [27, 39],
+    iconAnchor: [13.5, 39],
   });
 
   const currentCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_CURRENT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconUrl: PinActive,
+    iconSize: [27, 39],
+    iconAnchor: [13.5, 39],
   });
 
   useEffect(() => {
