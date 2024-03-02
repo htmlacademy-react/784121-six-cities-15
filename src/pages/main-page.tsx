@@ -12,16 +12,6 @@ type TMainPageProps = {
 function MainPage({ offers }: TMainPageProps) {
   const [selectedPoint, setSelectedPoint] = useState<Offer | null>(null);
 
-  const handleListPointHover = (pointId: string) => {
-    const currentPoint = offers.find((offer) => offer.id === pointId) ?? null;
-
-    setSelectedPoint(currentPoint);
-  };
-
-  const handleListPointBlur = () => {
-    setSelectedPoint(null);
-  };
-
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -37,8 +27,7 @@ function MainPage({ offers }: TMainPageProps) {
             <PlacesList
               offers={offers}
               extraClassName="cities__places-list tabs__content"
-              onListItemHover={handleListPointHover}
-              onListItemBlur={handleListPointBlur}
+              onCardHover={setSelectedPoint}
             />
           </section>
           <div className="cities__right-section">

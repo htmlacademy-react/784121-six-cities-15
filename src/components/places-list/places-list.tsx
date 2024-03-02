@@ -1,36 +1,18 @@
 import clsx from 'clsx';
 import { Offer } from '../../types/offer';
-import { OfferPreview } from '../../types/offer-preview';
 import Card from '../card';
 
 type TPlacesListProps = {
-  offers: Offer[] | OfferPreview[];
+  offers: Offer[];
   extraClassName?: string;
-  onListItemHover?: (id: string) => void;
-  onListItemBlur?: () => void;
+  onCardHover?: (offer: Offer | null) => void;
 };
 
-function PlacesList({
-  offers,
-  extraClassName,
-  onListItemHover,
-  onListItemBlur,
-}: TPlacesListProps) {
-  const handleListItemHover = (id: string) => {
-    if (onListItemHover) {
-      onListItemHover(id);
-    }
-  };
-
+function PlacesList({ offers, extraClassName, onCardHover }: TPlacesListProps) {
   return (
     <div className={clsx(extraClassName, 'places__list')}>
       {offers.map((item) => (
-        <Card
-          key={item.id}
-          offer={item}
-          onMouseOver={handleListItemHover}
-          onMouseLeave={onListItemBlur}
-        />
+        <Card key={item.id} offer={item} onMouseOver={onCardHover} />
       ))}
     </div>
   );

@@ -1,25 +1,19 @@
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import { AppRoutes } from '../const';
-import { OfferPreview } from '../../types/offer-preview';
 import PremiumBadge from '../premium-badge';
 import { getImageSize, getLayoutState } from './helpers';
 import { Size } from '../../types/size';
 import { getRating } from '../utils';
+import { Offer } from '../../types/offer';
 
 type TCardProps = {
-  offer: OfferPreview;
+  offer: Offer;
   size?: Size;
-  onMouseOver?: (id: string) => void;
-  onMouseLeave?: () => void;
+  onMouseOver?: (offer: Offer | null) => void;
 };
 
-function Card({
-  offer,
-  size = 'large',
-  onMouseOver,
-  onMouseLeave,
-}: TCardProps) {
+function Card({ offer, size = 'large', onMouseOver }: TCardProps) {
   const { isPremium, price, title, type, rating, previewImage } = offer;
   const { pathname } = useLocation();
   const { cardClassName, imageWrapperClassName, cardInfoClassName } =
@@ -28,7 +22,13 @@ function Card({
 
   const handleListItemHover = () => {
     if (onMouseOver) {
-      onMouseOver(offer.id);
+      onMouseOver(offer);
+    }
+  };
+
+  const handleListItemBlur = () => {
+    if (onMouseOver) {
+      onMouseOver(null);
     }
   };
 
@@ -36,7 +36,7 @@ function Card({
     <article
       className={clsx(cardClassName, 'place-card')}
       onMouseOver={handleListItemHover}
-      onMouseLeave={onMouseLeave}
+      onMouseLeave={handleListItemBlur}
     >
       <PremiumBadge isPremium={isPremium} extraClassName="place-card__mark" />
       <div className={clsx(imageWrapperClassName, 'place-card__image-wrapper')}>
