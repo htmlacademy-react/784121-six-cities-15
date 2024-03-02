@@ -10,17 +10,34 @@ import { getRating } from '../utils';
 type TCardProps = {
   offer: OfferPreview;
   size?: Size;
+  onMouseOver?: (id: string) => void;
+  onMouseLeave?: () => void;
 };
 
-function Card({ offer, size = 'large' }: TCardProps) {
+function Card({
+  offer,
+  size = 'large',
+  onMouseOver,
+  onMouseLeave,
+}: TCardProps) {
   const { isPremium, price, title, type, rating, previewImage } = offer;
   const { pathname } = useLocation();
   const { cardClassName, imageWrapperClassName, cardInfoClassName } =
     getLayoutState(pathname as AppRoutes);
   const displayedRating = getRating({ rating });
 
+  const handleListItemHover = () => {
+    if (onMouseOver) {
+      onMouseOver(offer.id);
+    }
+  };
+
   return (
-    <article className={clsx(cardClassName, 'place-card')}>
+    <article
+      className={clsx(cardClassName, 'place-card')}
+      onMouseOver={handleListItemHover}
+      onMouseLeave={onMouseLeave}
+    >
       <PremiumBadge isPremium={isPremium} extraClassName="place-card__mark" />
       <div className={clsx(imageWrapperClassName, 'place-card__image-wrapper')}>
         <Link to={`${AppRoutes.Offer}/${offer.id}`}>
