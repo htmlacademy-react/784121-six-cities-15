@@ -6,7 +6,7 @@ import Footer from '../footer';
 import { getLayoutState } from './helpers';
 
 type TLayoutProps = {
-  hasAccess?: boolean;
+  hasAccess: boolean;
 };
 
 function Layout({ hasAccess }: TLayoutProps) {

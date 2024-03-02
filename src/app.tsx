@@ -12,7 +12,7 @@ import { OFFERS } from './mocks/offers';
 import Layout from './components/layout';
 
 type TAppProps = {
-  hasAccess?: boolean;
+  hasAccess: boolean;
 };
 
 function App({ hasAccess }: TAppProps) {
@@ -37,7 +37,15 @@ function App({ hasAccess }: TAppProps) {
               path={`${AppRoutes.Offer}/:id`}
               element={<OfferPage offers={OFFERS} />}
             />
-            <Route path={AppRoutes.Login} element={<LoginPage />} />
+
+            <Route
+              path={AppRoutes.Login}
+              element={
+                <PrivateRoute hasAccess={hasAccess} onlyUnAuth>
+                  <LoginPage />
+                </PrivateRoute>
+              }
+            />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
