@@ -6,7 +6,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const hasAccess: boolean = true;
+const hasAccess: boolean = false;
 
 root.render(
   <React.StrictMode>

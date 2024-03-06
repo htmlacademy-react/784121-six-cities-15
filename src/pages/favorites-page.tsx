@@ -3,6 +3,7 @@ import { Offer } from '../types/offer';
 import FavoritesEmpty from '../components/favorites-empty.tsx';
 import FavoritesList from '../components/favorites-list/favorites-list.tsx';
 import { getFavoritesByLocation } from '../components/utils.ts';
+import clsx from 'clsx';
 
 type TFavoritesPageProps = {
   offers: Offer[];
@@ -12,7 +13,12 @@ function FavoritesPage({ offers }: TFavoritesPageProps) {
   const favoritesOffers = getFavoritesByLocation(offers);
 
   return (
-    <main className="page__main page__main--favorites">
+    <main
+      className={clsx(
+        'page__main page__main--favorites',
+        favoritesOffers && 'page__main--favorites-empty'
+      )}
+    >
       <Helmet>
         <title>6 cities: favorites</title>
       </Helmet>

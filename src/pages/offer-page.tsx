@@ -5,7 +5,6 @@ import { Offer } from '../types/offer';
 import Gallery from '../components/gallery';
 import OfferHost from '../components/offer-host';
 import Reviews from '../components/reviews';
-import Map from '../components/map';
 import PlacesList from '../components/places-list';
 import PremiumBadge from '../components/premium-badge';
 import Rating from '../components/rating';
@@ -72,7 +71,6 @@ function OfferPage({ offers }: TOfferPageProps) {
             <Reviews extraClassName="offer__reviews" />
           </div>
         </div>
-        <Map extraClassName="offer__map" />
       </section>
       <div className="container">
         <section className="near-places places">

@@ -1,14 +1,17 @@
+import { useState } from 'react';
 import Locations from '../components/locations/locations';
 import Map from '../components/map';
 import PlacesList from '../components/places-list';
 import Sorting from '../components/sorting';
-import { OfferPreview } from '../types/offer-preview';
+import { Offer } from '../types/offer';
 
 type TMainPageProps = {
-  offers: OfferPreview[];
+  offers: Offer[];
 };
 
 function MainPage({ offers }: TMainPageProps) {
+  const [selectedPoint, setSelectedPoint] = useState<Offer | null>(null);
+
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -24,10 +27,16 @@ function MainPage({ offers }: TMainPageProps) {
             <PlacesList
               offers={offers}
               extraClassName="cities__places-list tabs__content"
+              onCardHover={setSelectedPoint}
             />
           </section>
           <div className="cities__right-section">
-            <Map extraClassName="cities__map" />
+            <Map
+              extraClassName="cities__map"
+              city={offers[0].city}
+              points={offers}
+              selectedPoint={selectedPoint}
+            />
           </div>
         </div>
       </div>

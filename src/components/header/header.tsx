@@ -5,7 +5,7 @@ import { AppRoutes } from '../const';
 type THeaderProps = {
   activeLogoClassName?: string;
   shouldRenderUser?: boolean;
-  hasAccess?: boolean;
+  hasAccess: boolean;
 };
 
 function Header({
