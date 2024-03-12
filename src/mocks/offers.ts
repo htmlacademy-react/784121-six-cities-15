@@ -172,16 +172,16 @@ export const OFFERS: Offer[] = [
     ],
     previewImage: 'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
     city: {
-      name: 'Paris',
+      name: 'Cologne',
       location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
+        latitude: 50.9577028,
+        longitude: 6.9673224,
         zoom: 13,
       },
     },
     location: {
-      latitude: 48.85761,
-      longitude: 2.358499,
+      latitude: 50.9577028,
+      longitude: 6.9673224,
       zoom: 16,
     },
     goods: [
