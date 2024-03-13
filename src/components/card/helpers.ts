@@ -16,6 +16,10 @@ export const getLayoutState = (pathname: AppRoutes) => {
       cardClassName = 'cities__card';
       imageWrapperClassName = 'cities__image-wrapper';
       break;
+    case AppRoutes.Offer:
+      cardClassName = 'near-places__card';
+      imageWrapperClassName = 'near-places__image-wrapper';
+      break;
   }
 
   return {

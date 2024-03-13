@@ -6,17 +6,24 @@ import Gallery from '../components/gallery';
 import OfferHost from '../components/offer-host';
 import Reviews from '../components/reviews';
 import PlacesList from '../components/places-list';
+import Map from '../components/map';
 import PremiumBadge from '../components/premium-badge';
 import Rating from '../components/rating';
 import OfferGoods from '../components/offer-goods';
+import { REVIEWS } from '../mocks/reviews';
+import { useState } from 'react';
 
 type TOfferPageProps = {
   offers: Offer[];
 };
 
 function OfferPage({ offers }: TOfferPageProps) {
+  const [selectedPoint, setSelectedPoint] = useState<Offer | null>(null);
+
   const { id } = useParams();
   const offer = offers.find((item) => item.id === id);
+  const reviews = REVIEWS.filter((review) => review.offerId === offer?.id);
+  const otherPlaces = offers.slice(0, 3);
 
   return offer ? (
     <main className="page__main page__main--offer">
@@ -68,16 +75,26 @@ function OfferPage({ offers }: TOfferPageProps) {
             <div className="offer__description">
               <p className="offer__text">{offer.description}</p>
             </div>
-            <Reviews extraClassName="offer__reviews" />
+            <Reviews extraClassName="offer__reviews" reviews={reviews} />
           </div>
         </div>
+        <Map
+          extraClassName="offer__map"
+          city={offers[0].city}
+          points={otherPlaces}
+          selectedPoint={selectedPoint}
+        />
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">
             Other places in the neighbourhood
           </h2>
-          <PlacesList offers={offers} extraClassName="near-places__list" />
+          <PlacesList
+            offers={otherPlaces}
+            extraClassName="near-places__list"
+            onCardHover={setSelectedPoint}
+          />
         </section>
       </div>
     </main>
