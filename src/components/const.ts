@@ -3,6 +3,7 @@ export enum AppRoutes {
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer',
+  OfferId = '/offer/:id',
 }
 
 export const LOCATIONS = [
@@ -21,3 +22,10 @@ export const RATING = [
   { stars: 2, title: 'badly' },
   { stars: 1, title: 'terribly' },
 ];
+
+export enum SortType {
+  Popular = 'Popular',
+  LowToHigh = 'Price: low to high',
+  HighToLow = 'Price: high to low',
+  Top = 'Top rated first',
+}

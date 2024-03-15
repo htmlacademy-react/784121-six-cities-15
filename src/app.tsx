@@ -24,7 +24,7 @@ function App({ hasAccess }: TAppProps) {
             path={AppRoutes.Main}
             element={<Layout hasAccess={hasAccess} />}
           >
-            <Route index element={<MainPage offers={OFFERS} />} />
+            <Route index element={<MainPage />} />
             <Route
               path={AppRoutes.Favorites}
               element={
@@ -34,7 +34,7 @@ function App({ hasAccess }: TAppProps) {
               }
             />
             <Route
-              path={`${AppRoutes.Offer}/:id`}
+              path={AppRoutes.OfferId}
               element={<OfferPage offers={OFFERS} />}
             />
 

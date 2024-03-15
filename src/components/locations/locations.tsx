@@ -1,18 +1,18 @@
 import clsx from 'clsx';
-import { useDispatch } from 'react-redux';
-import { LOCATIONS } from '../const';
-import { useAppSelector } from '../../hooks';
-import { changeCity, fillOfferList } from '../../store/action';
+import { LOCATIONS, SortType } from '../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { changeCity, fillOfferList, setSortType } from '../../store/action';
 
 function Locations() {
   const currentCity = useAppSelector((state) => state.currentCity);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const onCityClickHandler = (evt: React.MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     const value = evt.target as HTMLElement;
     dispatch(changeCity(value.innerText));
     dispatch(fillOfferList());
+    dispatch(setSortType(SortType.Popular));
   };
 
   return (

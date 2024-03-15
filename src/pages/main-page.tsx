@@ -1,15 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Locations from '../components/locations/locations';
 import Map from '../components/map';
 import PlacesList from '../components/places-list';
-import Sorting from '../components/sorting';
+import SortingList from '../components/sorting-list';
 import { Offer } from '../types/offer';
 import { useAppSelector } from '../hooks';
 import NotFoundPage from './not-found-page';
 
 function MainPage() {
   const [selectedPoint, setSelectedPoint] = useState<Offer | null>(null);
-  const offers = useAppSelector((state) => state.offersByCurrentCity);
+  const initialOffers = useAppSelector((state) => state.offersByCurrentCity);
+  const [offers, setOffers] = useState(initialOffers);
+
+  useEffect(() => {
+    setOffers(initialOffers);
+  }, [initialOffers]);
 
   return (
     <main className="page__main page__main--index">
@@ -23,7 +28,10 @@ function MainPage() {
               <b className="places__found">
                 {offers.length} places to stay in Amsterdam
               </b>
-              <Sorting />
+              <SortingList
+                handleSortingItemClick={setOffers}
+                initialOffers={initialOffers}
+              />
               <PlacesList
                 offers={offers}
                 extraClassName="cities__places-list tabs__content"

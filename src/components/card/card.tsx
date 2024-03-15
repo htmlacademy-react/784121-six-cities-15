@@ -2,9 +2,9 @@ import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import { AppRoutes } from '../const';
 import PremiumBadge from '../premium-badge';
-import { getImageSize, getLayoutState } from './helpers';
+import { useLayoutState } from './useLayoutState';
 import { Size } from '../../types/size';
-import { getRating } from '../utils';
+import { getImageSize, getRating } from '../utils';
 import { Offer } from '../../types/offer';
 
 type TCardProps = {
@@ -17,7 +17,7 @@ function Card({ offer, size = 'large', onMouseOver }: TCardProps) {
   const { isPremium, price, title, type, rating, previewImage } = offer;
   const { pathname } = useLocation();
   const { cardClassName, imageWrapperClassName, cardInfoClassName } =
-    getLayoutState(pathname as AppRoutes);
+    useLayoutState(pathname as AppRoutes);
   const displayedRating = getRating({ rating });
 
   const handleListItemHover = () => {

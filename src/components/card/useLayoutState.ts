@@ -1,7 +1,9 @@
-import { Size } from '../../types/size';
+import { useMatch } from 'react-router-dom';
 import { AppRoutes } from '../const';
 
-export const getLayoutState = (pathname: AppRoutes) => {
+export const useLayoutState = (pathname: AppRoutes) => {
+  const offerPattern = useMatch(AppRoutes.OfferId);
+
   let cardClassName = '';
   let imageWrapperClassName = '';
   let cardInfoClassName = '';
@@ -16,7 +18,7 @@ export const getLayoutState = (pathname: AppRoutes) => {
       cardClassName = 'cities__card';
       imageWrapperClassName = 'cities__image-wrapper';
       break;
-    case AppRoutes.Offer:
+    case offerPattern?.pathname:
       cardClassName = 'near-places__card';
       imageWrapperClassName = 'near-places__image-wrapper';
       break;
@@ -28,6 +30,3 @@ export const getLayoutState = (pathname: AppRoutes) => {
     cardInfoClassName,
   };
 };
-
-export const getImageSize = (size: Size) =>
-  size === 'small' ? { width: 150, height: 110 } : { width: 260, height: 200 };
