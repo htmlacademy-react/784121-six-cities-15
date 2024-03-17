@@ -12,6 +12,15 @@ const useMap = ({ city, mapRef }: TUseMapProps) => {
   const isRenderedRef = useRef(false);
 
   useEffect(() => {
+    if (city && map !== null) {
+      map.setView({
+        lat: city.location.latitude,
+        lng: city.location.longitude,
+      });
+
+      return;
+    }
+
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = leaflet.map(mapRef.current, {
         center: {
@@ -34,7 +43,7 @@ const useMap = ({ city, mapRef }: TUseMapProps) => {
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, city]);
+  }, [mapRef, city, map]);
 
   return map;
 };
