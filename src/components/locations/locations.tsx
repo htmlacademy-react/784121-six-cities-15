@@ -1,35 +1,34 @@
 import clsx from 'clsx';
-import { LOCATIONS, SortType } from '../const';
+import { CITIES } from '../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeCity, fillOfferList, setSortType } from '../../store/action';
+import { CityName } from '../../types/city';
+import { offersActions, offersSelectors } from '../../store/slices/offers';
 
 function Locations() {
-  const currentCity = useAppSelector((state) => state.currentCity);
+  const currentCity = useAppSelector(offersSelectors.city);
   const dispatch = useAppDispatch();
 
   const onCityClickHandler = (evt: React.MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     const value = evt.target as HTMLElement;
-    dispatch(changeCity(value.innerText));
-    dispatch(fillOfferList());
-    dispatch(setSortType(SortType.Popular));
+    dispatch(offersActions.changeCity(value.innerText as CityName));
   };
 
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {LOCATIONS.map((location) => (
-            <li key={location} className="locations__item">
+          {CITIES.map((city) => (
+            <li key={city.name} className="locations__item">
               <a
                 className={clsx(
                   'locations__item-link tabs__item',
-                  location === currentCity && 'tabs__item--active'
+                  city.name === currentCity && 'tabs__item--active'
                 )}
                 href="#"
                 onClick={onCityClickHandler}
               >
-                <span>{location}</span>
+                <span>{city.name}</span>
               </a>
             </li>
           ))}

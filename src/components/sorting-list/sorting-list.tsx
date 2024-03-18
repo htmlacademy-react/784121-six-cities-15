@@ -1,21 +1,16 @@
 import clsx from 'clsx';
 import { useState } from 'react';
-import { SortType } from '../const';
-import SortingItem from '../sorting-item';
-import { Offer } from '../../types/offer';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setSortType } from '../../store/action';
-import { getOffersBySortType } from './helpers';
+import { SORT_OPTIONS, SortOption } from '../const';
 
-type TSortingProps = {
-  handleSortingItemClick: (offers: Offer[]) => void;
-  initialOffers: Offer[];
+type TSortingListProps = {
+  current: SortOption;
+  setter: (option: SortOption) => void;
 };
 
-function SortingList({ handleSortingItemClick, initialOffers }: TSortingProps) {
+function SortingList({ current, setter }: TSortingListProps) {
   const [isOpened, setOpen] = useState(false);
-  const sortType = useAppSelector((state) => state.sortType);
-  const dispatch = useAppDispatch();
+
+  const selectedOption = SORT_OPTIONS[current];
 
   const onSortListOpenClick = (evt: React.MouseEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -23,18 +18,6 @@ function SortingList({ handleSortingItemClick, initialOffers }: TSortingProps) {
 
     if (target.closest('.places__sorting') && target.tagName !== 'LI') {
       setOpen((prevState) => !prevState);
-    }
-
-    if (target.tagName === 'LI') {
-      const currentSort = target.textContent as SortType;
-
-      setOpen(false);
-      dispatch(setSortType(currentSort));
-      getOffersBySortType({
-        cb: handleSortingItemClick,
-        sortType: currentSort,
-        initialOffers,
-      });
     }
   };
 
@@ -47,7 +30,7 @@ function SortingList({ handleSortingItemClick, initialOffers }: TSortingProps) {
     >
       <span className="places__sorting-caption">Sort by&nbsp;</span>
       <span className="places__sorting-type" tabIndex={0}>
-        {sortType}
+        {selectedOption}
         <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select" />
         </svg>
@@ -58,8 +41,21 @@ function SortingList({ handleSortingItemClick, initialOffers }: TSortingProps) {
           isOpened && 'places__options--opened'
         )}
       >
-        {Object.entries(SortType).map(([key, value]) => (
-          <SortingItem key={key} type={value} />
+        {SORT_OPTIONS.map((option, index) => (
+          <li
+            key={option}
+            onClick={() => {
+              setOpen(false);
+              setter(index);
+            }}
+            className={clsx(
+              'places__option',
+              selectedOption === option && 'places__option--active'
+            )}
+            tabIndex={0}
+          >
+            {option}
+          </li>
         ))}
       </ul>
     </form>

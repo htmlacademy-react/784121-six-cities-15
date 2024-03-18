@@ -3,19 +3,22 @@ import { useEffect, useRef } from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from './hooks';
-import { City } from '../../types/city';
+import { CityName } from '../../types/city';
 import { Offer } from '../../types/offer';
 import Pin from './assets/pin.svg';
 import PinActive from './assets/pin-active.svg';
+import { CITIES } from '../const';
 
 type TMapProps = {
   extraClassName?: string;
-  city: City;
+  cityName: CityName;
   points: Offer[];
   selectedPoint: Offer | null;
 };
 
-function Map({ extraClassName, city, points, selectedPoint }: TMapProps) {
+function Map({ extraClassName, cityName, points, selectedPoint }: TMapProps) {
+  const city = CITIES.find((item) => cityName === item.name) || CITIES[0];
+
   const mapRef = useRef<HTMLDivElement | null>(null);
   const map = useMap({ city, mapRef });
 
