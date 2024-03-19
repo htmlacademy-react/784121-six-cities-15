@@ -5,25 +5,28 @@ import { Offer } from '../types/offer';
 import Gallery from '../components/gallery';
 import OfferHost from '../components/offer-host';
 import Reviews from '../components/reviews';
-import PlacesList from '../components/places-list';
 import Map from '../components/map';
 import PremiumBadge from '../components/premium-badge';
 import Rating from '../components/rating';
 import OfferGoods from '../components/offer-goods';
 import { REVIEWS } from '../mocks/reviews';
 import { useState } from 'react';
+import { useAppSelector } from '../hooks';
+import { offersSelectors } from '../store/slices/offers';
+import CardList from '../components/card-list';
 
-type TOfferPageProps = {
-  offers: Offer[];
-};
-
-function OfferPage({ offers }: TOfferPageProps) {
+function OfferPage() {
   const [selectedPoint, setSelectedPoint] = useState<Offer | null>(null);
-
   const { id } = useParams();
-  const offer = offers.find((item) => item.id === id);
+  const offers = useAppSelector(offersSelectors.offers);
+  const currentCity = useAppSelector(offersSelectors.city);
+
+  const currentOffers =
+    offers.filter((offer) => offer.city.name === currentCity) || [];
+
+  const offer = currentOffers.find((item) => item.id === id);
+  const otherPlaces = currentOffers.slice(0, 3);
   const reviews = REVIEWS.filter((review) => review.offerId === offer?.id);
-  const otherPlaces = offers.slice(0, 3);
 
   return offer ? (
     <main className="page__main page__main--offer">
@@ -80,7 +83,7 @@ function OfferPage({ offers }: TOfferPageProps) {
         </div>
         <Map
           extraClassName="offer__map"
-          city={offers[0].city}
+          cityName={currentCity}
           points={otherPlaces}
           selectedPoint={selectedPoint}
         />
@@ -90,7 +93,8 @@ function OfferPage({ offers }: TOfferPageProps) {
           <h2 className="near-places__title">
             Other places in the neighbourhood
           </h2>
-          <PlacesList
+
+          <CardList
             offers={otherPlaces}
             extraClassName="near-places__list"
             onCardHover={setSelectedPoint}

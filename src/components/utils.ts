@@ -1,4 +1,5 @@
 import { Offer } from '../types/offer';
+import { Size } from '../types/size';
 
 export const getRating = ({ rating }: { rating: number }) => {
   const STARS_COUNT = 5;
@@ -25,4 +26,7 @@ export const getFavoritesByLocation = (offers: Offer[]) =>
     return acc;
   }, {});
 
-export default { getRating, getFavoritesByLocation };
+export const getImageSize = (size: Size) =>
+  size === 'small' ? { width: 150, height: 110 } : { width: 260, height: 200 };
+
+export default { getRating, getFavoritesByLocation, getImageSize };
