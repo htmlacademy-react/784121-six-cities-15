@@ -33,10 +33,7 @@ function App({ hasAccess }: TAppProps) {
                 </PrivateRoute>
               }
             />
-            <Route
-              path={AppRoutes.OfferId}
-              element={<OfferPage offers={OFFERS} />}
-            />
+            <Route path={AppRoutes.OfferId} element={<OfferPage />} />
 
             <Route
               path={AppRoutes.Login}
