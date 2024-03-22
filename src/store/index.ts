@@ -1,6 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { offersSlice } from './slices/offers';
+import { createApi } from '../services/api';
+
+const reducer = combineReducers({ [offersSlice.name]: offersSlice.reducer });
 
 export const store = configureStore({
-  reducer: { [offersSlice.name]: offersSlice.reducer },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: createApi(),
+      },
+    }),
+  reducer,
 });
