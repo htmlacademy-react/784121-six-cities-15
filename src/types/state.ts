@@ -1,3 +1,4 @@
+import { RequestStatus } from '../components/const';
 import { store } from '../store';
 import { CityName } from './city';
 import { Offer } from './offer';
@@ -11,4 +12,5 @@ export type OfferState = {
   offers: Offer[];
   error: string | null;
   isOffersDataLoading: boolean;
+  status: RequestStatus;
 };

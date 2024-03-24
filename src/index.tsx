@@ -4,9 +4,6 @@ import App from './app';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import ErrorMessage from './components/error-message';
-import { fetchOffersAction } from './store/api-actions';
-
-store.dispatch(fetchOffersAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

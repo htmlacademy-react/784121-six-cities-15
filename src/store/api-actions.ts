@@ -1,24 +1,20 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Offer } from '../types/offer';
-import { APIRoutes, TIMEOUT_SHOW_ERROR } from '../components/const';
-import { AppDispatch, State } from '../types/state';
 import { store } from './';
 import { offersActions } from './slices/offers';
+import { APIRoutes, TIMEOUT_SHOW_ERROR } from '../components/const';
 
-export const fetchOffersAction = createAsyncThunk<
-  void,
+export const fetchAllOffers = createAsyncThunk<
+  Offer[],
   undefined,
   {
-    dispatch: AppDispatch;
-    state: State;
     extra: AxiosInstance;
   }
->('data/fetchOffers', async (_arg, { dispatch, extra: api }) => {
-  dispatch(offersActions.setOffersDataLoadingStatus(true));
-  const { data } = await api.get<Offer[]>(APIRoutes.Offers);
-  dispatch(offersActions.setOffersDataLoadingStatus(false));
-  dispatch(offersActions.loadOffers(data));
+>('fetchOffers/all', async (_arg, { extra: api }) => {
+  const response = await api.get<Offer[]>(APIRoutes.Offers);
+
+  return response.data;
 });
 
 export const clearErrorAction = createAsyncThunk('data/clearError', () => {
