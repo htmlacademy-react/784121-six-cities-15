@@ -8,14 +8,24 @@ import FavoritesPage from './pages/favorites-page';
 import OfferPage from './pages/offer-page';
 import LoginPage from './pages/login-page';
 import PrivateRoute from './components/private-route';
-import { OFFERS } from './mocks/offers';
 import Layout from './components/layout';
+import { useAppSelector } from './hooks';
+import { offersSelectors } from './store/slices/offers';
+import Spinner from './components/spinner';
 
 type TAppProps = {
   hasAccess: boolean;
 };
 
 function App({ hasAccess }: TAppProps) {
+  const isOffersDataLoading = useAppSelector(
+    offersSelectors.isOffersDataLoading
+  );
+
+  if (isOffersDataLoading) {
+    return <Spinner />;
+  }
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -29,7 +39,7 @@ function App({ hasAccess }: TAppProps) {
               path={AppRoutes.Favorites}
               element={
                 <PrivateRoute hasAccess={hasAccess}>
-                  <FavoritesPage offers={OFFERS} />
+                  <FavoritesPage offers={[]} />
                 </PrivateRoute>
               }
             />

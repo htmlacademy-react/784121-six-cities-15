@@ -1,5 +1,5 @@
 function Spinner() {
-  return <>loader</>;
+  return <p>Loading...</p>;
 }
 
 export default Spinner;
