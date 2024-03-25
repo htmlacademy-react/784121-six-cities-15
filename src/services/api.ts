@@ -22,7 +22,7 @@ export const createApi = (): AxiosInstance => {
     baseURL: Default.BaseURL as string,
     timeout: Default.Timeout as number,
   });
-  toast('hello', { position: 'top-right' });
+
   api.interceptors.request.use((config) => {
     const token = getToken();
 
