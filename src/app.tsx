@@ -1,16 +1,16 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
 import NotFoundPage from './pages/not-found-page';
 import { HelmetProvider } from 'react-helmet-async';
 import MainPage from './pages/main-page';
-import { AppRoutes } from './components/const';
+import { AppRoutes, RequestStatus } from './components/const';
 import FavoritesPage from './pages/favorites-page';
 import OfferPage from './pages/offer-page';
 import LoginPage from './pages/login-page';
 import PrivateRoute from './components/private-route';
 import Layout from './components/layout';
-import { useAppSelector } from './hooks';
-import { offersSelectors } from './store/slices/offers';
+import { useAppDispatch, useAppSelector } from './hooks';
+import { offersActions, offersSelectors } from './store/slices/offers';
 import Spinner from './components/spinner';
 
 type TAppProps = {
@@ -18,11 +18,14 @@ type TAppProps = {
 };
 
 function App({ hasAccess }: TAppProps) {
-  const isOffersDataLoading = useAppSelector(
-    offersSelectors.isOffersDataLoading
-  );
+  const status = useAppSelector(offersSelectors.offersStatus);
+  const dispatch = useAppDispatch();
 
-  if (isOffersDataLoading) {
+  useEffect(() => {
+    dispatch(offersActions.fetchAllOffers());
+  }, [dispatch]);
+
+  if (status === RequestStatus.Loading) {
     return <Spinner />;
   }
 

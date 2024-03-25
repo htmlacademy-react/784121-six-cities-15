@@ -10,7 +10,5 @@ export type AppDispatch = typeof store.dispatch;
 export type OfferState = {
   currentCity: CityName;
   offers: Offer[];
-  error: string | null;
-  isOffersDataLoading: boolean;
   status: RequestStatus;
 };

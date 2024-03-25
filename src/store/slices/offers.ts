@@ -8,8 +8,6 @@ import { fetchAllOffers } from '../api-actions';
 const initialState: OfferState = {
   currentCity: CITIES[0].name,
   offers: [],
-  error: null,
-  isOffersDataLoading: false,
   status: RequestStatus.Idle,
 };
 
@@ -22,12 +20,6 @@ const offersSlice = createSlice({
     },
     loadOffers: (state, action: PayloadAction<Offer[]>) => {
       state.offers = action.payload;
-    },
-    setError: (state, action: PayloadAction<string | null>) => {
-      state.error = action.payload;
-    },
-    setOffersDataLoadingStatus: (state, action: PayloadAction<boolean>) => {
-      state.isOffersDataLoading = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -46,13 +38,11 @@ const offersSlice = createSlice({
   selectors: {
     offers: (state) => state.offers,
     city: (state) => state.currentCity,
-    error: (state) => state.error,
-    isOffersDataLoading: (state) => state.isOffersDataLoading,
     offersStatus: (state) => state.status,
   },
 });
 
-const offersActions = offersSlice.actions;
+const offersActions = { ...offersSlice.actions, fetchAllOffers };
 const offersSelectors = offersSlice.selectors;
 
 export { offersActions, offersSlice, offersSelectors };
