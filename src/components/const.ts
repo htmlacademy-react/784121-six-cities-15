@@ -6,6 +6,21 @@ export enum AppRoutes {
   OfferId = '/offer/:id',
 }
 
+export enum APIRoutes {
+  Offers = '/offers',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export const TIMEOUT_SHOW_ERROR = 2000;
+
+export const enum RequestStatus {
+  Idle,
+  Loading,
+  Success,
+  Failed,
+}
+
 export const CITIES = [
   {
     id: 'paris',
