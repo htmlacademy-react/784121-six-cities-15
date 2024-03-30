@@ -5,11 +5,7 @@ import Header from '../header/header';
 import Footer from '../footer';
 import { getLayoutState } from './helpers';
 
-type TLayoutProps = {
-  hasAccess: boolean;
-};
-
-function Layout({ hasAccess }: TLayoutProps) {
+function Layout() {
   const { pathname } = useLocation();
   const {
     pageClassName,
@@ -23,7 +19,6 @@ function Layout({ hasAccess }: TLayoutProps) {
       <Header
         activeLogoClassName={activeLogoClassName}
         shouldRenderUser={shouldRenderUser}
-        hasAccess={hasAccess}
       />
       <Outlet />
       {shouldRenderFooter && <Footer />}

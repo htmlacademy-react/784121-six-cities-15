@@ -12,6 +12,14 @@ export enum APIRoutes {
   Logout = '/logout',
 }
 
+export const Endpoint = {
+  Comments: '/comments',
+  Favorite: '/favorite',
+  Login: '/login',
+  Logout: '/logout',
+  Offers: '/offers',
+};
+
 export const TIMEOUT_SHOW_ERROR = 2000;
 
 export const enum RequestStatus {
@@ -83,4 +91,10 @@ export enum SortOption {
   PriceLowToHigh = 1,
   PriceHighToLow = 2,
   TopRatedFirst = 3,
+}
+
+export enum AuthorizationStatus {
+  Unknown = 'UNKNOWN',
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
 }

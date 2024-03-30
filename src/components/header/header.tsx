@@ -1,18 +1,24 @@
 import { Link } from 'react-router-dom';
 import Logo from '../logo';
 import { AppRoutes } from '../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { userActions, userSelectors } from '../../store/slices/user';
+import { useFavoriteCount } from '../../hooks/use-favorite-count';
 
 type THeaderProps = {
   activeLogoClassName?: string;
   shouldRenderUser?: boolean;
-  hasAccess: boolean;
 };
 
-function Header({
-  activeLogoClassName,
-  shouldRenderUser,
-  hasAccess,
-}: THeaderProps) {
+function Header({ activeLogoClassName, shouldRenderUser }: THeaderProps) {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(userSelectors.user);
+  const favoritesCount = useFavoriteCount();
+
+  const logout = () => {
+    dispatch(userActions.logout());
+  };
+
   return (
     <header className="header">
       <div className="container">
@@ -23,7 +29,7 @@ function Header({
           {shouldRenderUser && (
             <nav className="header__nav">
               <ul className="header__nav-list">
-                {hasAccess && (
+                {user && (
                   <>
                     <li className="header__nav-item user">
                       <Link
@@ -31,23 +37,28 @@ function Header({
                         to={AppRoutes.Favorites}
                       >
                         <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-
                         <>
                           <span className="header__user-name user__name">
-                            Oliver.conner@gmail.com
+                            {user.email}
                           </span>
-                          <span className="header__favorite-count">3</span>
+                          <span className="header__favorite-count">
+                            {favoritesCount}
+                          </span>
                         </>
                       </Link>
                     </li>
                     <li className="header__nav-item">
-                      <Link className="header__nav-link" to={AppRoutes.Main}>
+                      <Link
+                        className="header__nav-link"
+                        onClick={logout}
+                        to="#"
+                      >
                         <span className="header__signout">Sign out</span>
                       </Link>
                     </li>
                   </>
                 )}
-                {!hasAccess && (
+                {!user && (
                   <li className="header__nav-item user">
                     <Link
                       className="header__nav-link header__nav-link--profile"

@@ -11,19 +11,33 @@ import PrivateRoute from './components/private-route';
 import Layout from './components/layout';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { offersActions, offersSelectors } from './store/slices/offers';
+import { userActions } from './store/slices/user';
+import { getToken } from './services/token';
 import Spinner from './components/spinner';
+import { toast } from 'react-toastify';
+import { favoritesActions } from './store/slices/favorites';
 
-type TAppProps = {
-  hasAccess: boolean;
-};
-
-function App({ hasAccess }: TAppProps) {
-  const status = useAppSelector(offersSelectors.offersStatus);
+function App() {
   const dispatch = useAppDispatch();
+  const status = useAppSelector(offersSelectors.offersStatus);
+  const token = getToken();
 
   useEffect(() => {
-    dispatch(offersActions.fetchAllOffers());
+    dispatch(offersActions.fetchAllOffers())
+      .unwrap()
+      .then(() => toast('Предложения успешно загружены!'))
+      .catch(() => toast('Что-то пошло не так...'));
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(favoritesActions.fetchFavorites());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(userActions.checkAuth());
+    }
+  }, [dispatch, token]);
 
   if (status === RequestStatus.Loading) {
     return <Spinner />;
@@ -33,16 +47,13 @@ function App({ hasAccess }: TAppProps) {
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route
-            path={AppRoutes.Main}
-            element={<Layout hasAccess={hasAccess} />}
-          >
+          <Route path={AppRoutes.Main} element={<Layout />}>
             <Route index element={<MainPage />} />
             <Route
               path={AppRoutes.Favorites}
               element={
-                <PrivateRoute hasAccess={hasAccess}>
-                  <FavoritesPage offers={[]} />
+                <PrivateRoute>
+                  <FavoritesPage />
                 </PrivateRoute>
               }
             />
@@ -51,7 +62,7 @@ function App({ hasAccess }: TAppProps) {
             <Route
               path={AppRoutes.Login}
               element={
-                <PrivateRoute hasAccess={hasAccess} onlyUnAuth>
+                <PrivateRoute onlyUnAuth>
                   <LoginPage />
                 </PrivateRoute>
               }

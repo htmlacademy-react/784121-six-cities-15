@@ -7,6 +7,8 @@ import PlacesListEmpty from '../places-list-empty/places-list-empty';
 import Map from '../map';
 import SortingList from '../sorting-list';
 import { CityName } from '../../types/city';
+import { useAppDispatch } from '../../hooks';
+import { offersActions } from '../../store/slices/offers';
 
 type TPlacesListProps = {
   extraClassName?: string;
@@ -20,7 +22,18 @@ function PlacesList({
   currentCity,
 }: TPlacesListProps) {
   const [activeSort, setActiveSort] = useState(SortOption.Popular);
-  const [selectedPoint, setSelectedPoint] = useState<Offer | null>(null);
+  const dispatch = useAppDispatch();
+
+  const onCardHover = (evt: React.MouseEvent<HTMLElement>) => {
+    const target = evt.currentTarget;
+    const dataId = target.dataset.id ?? null;
+
+    dispatch(offersActions.setActiveId(dataId));
+  };
+
+  const onCardLeave = () => {
+    dispatch(offersActions.setActiveId(null));
+  };
 
   const isEmpty = currentOffers.length === 0;
   let sortedOffers = currentOffers;
@@ -54,7 +67,12 @@ function PlacesList({
         <SortingList setter={setActiveSort} current={activeSort} />
         <div className={clsx(extraClassName, 'places__list')}>
           {sortedOffers.map((item) => (
-            <Card key={item.id} offer={item} onMouseOver={setSelectedPoint} />
+            <Card
+              key={item.id}
+              offer={item}
+              onMouseOver={onCardHover}
+              onMouseLeave={onCardLeave}
+            />
           ))}
         </div>
       </section>
@@ -63,7 +81,6 @@ function PlacesList({
           extraClassName="cities__map"
           cityName={currentCity}
           points={currentOffers}
-          selectedPoint={selectedPoint}
         />
       </div>
     </div>
