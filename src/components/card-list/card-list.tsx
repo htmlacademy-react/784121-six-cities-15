@@ -6,7 +6,7 @@ import { offersActions } from '../../store/slices/offers';
 
 type TPlacesListProps = {
   extraClassName?: string;
-  offers: Offer[];
+  offers: Offer[] | null;
 };
 
 function CardList({ extraClassName, offers }: TPlacesListProps) {
@@ -25,7 +25,7 @@ function CardList({ extraClassName, offers }: TPlacesListProps) {
 
   return (
     <div className={clsx(extraClassName, 'places__list')}>
-      {offers.map((item) => (
+      {offers?.map((item) => (
         <Card
           key={item.id}
           offer={item}

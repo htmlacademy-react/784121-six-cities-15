@@ -37,8 +37,8 @@ function Map({ extraClassName, cityName, points }: TMapProps) {
   });
 
   useEffect(() => {
-    if (map) {
-      points.forEach((point) => {
+    if (map && points) {
+      points?.forEach((point) => {
         leaflet
           .marker(
             {

@@ -16,6 +16,7 @@ import { reviewsActions, reviewsSelectors } from '../store/slices/reviews';
 import { useEffect } from 'react';
 import { RequestStatus } from '../components/const';
 import Spinner from '../components/spinner';
+import { Offer } from '../types/offer';
 
 function OfferPage() {
   const dispatch = useAppDispatch();
@@ -25,6 +26,7 @@ function OfferPage() {
   const offerPage = useAppSelector(offerSelectors.offer);
   const status = useAppSelector(offerSelectors.status);
   const nearbyOffers = useAppSelector(offerSelectors.nearbyOffers);
+  const nearOffersAndCurrent = [offerPage, ...nearbyOffers] as Offer[];
   const reviews = useAppSelector(reviewsSelectors.reviews);
 
   useEffect(() => {
@@ -99,7 +101,7 @@ function OfferPage() {
         <Map
           extraClassName="offer__map"
           cityName={currentCity}
-          points={nearbyOffers}
+          points={nearOffersAndCurrent}
         />
       </section>
       <div className="container">
