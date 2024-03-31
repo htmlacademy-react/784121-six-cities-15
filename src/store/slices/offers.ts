@@ -1,14 +1,21 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { OfferState } from '../../types/state';
 import { CITIES, RequestStatus } from '../../components/const';
 import { CityName } from '../../types/city';
 import { Offer } from '../../types/offer';
-import { fetchAllOffers } from '../api-actions';
+import { fetchAllOffers } from '../thunks/offers';
+
+export type OfferState = {
+  currentCity: CityName;
+  offers: Offer[];
+  status: RequestStatus;
+  activeId?: Offer['id'] | null;
+};
 
 const initialState: OfferState = {
   currentCity: CITIES[0].name,
   offers: [],
   status: RequestStatus.Idle,
+  activeId: null,
 };
 
 const offersSlice = createSlice({
@@ -18,8 +25,15 @@ const offersSlice = createSlice({
     changeCity: (state, action: PayloadAction<CityName>) => {
       state.currentCity = action.payload;
     },
-    loadOffers: (state, action: PayloadAction<Offer[]>) => {
-      state.offers = action.payload;
+    setActiveId: (state, action: PayloadAction<Offer['id'] | null>) => {
+      state.activeId = action.payload;
+    },
+    updateOffers: (state, action: PayloadAction<string>) => {
+      state.offers = state.offers.map((offer) =>
+        offer.id === action.payload
+          ? { ...offer, isFavorite: !offer.isFavorite }
+          : offer
+      );
     },
   },
   extraReducers: (builder) => {
@@ -39,6 +53,7 @@ const offersSlice = createSlice({
     offers: (state) => state.offers,
     city: (state) => state.currentCity,
     offersStatus: (state) => state.status,
+    activeId: (state) => state.activeId,
   },
 });
 
