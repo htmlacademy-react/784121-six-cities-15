@@ -7,9 +7,10 @@ import { useAuth } from '../../hooks/user-auth';
 type TReviewProps = {
   extraClassName?: string;
   reviews: Review[];
+  offerId: string;
 };
 
-function Reviews({ extraClassName, reviews }: TReviewProps) {
+function Reviews({ extraClassName, reviews, offerId }: TReviewProps) {
   const isAuth = useAuth();
 
   return (
@@ -18,7 +19,7 @@ function Reviews({ extraClassName, reviews }: TReviewProps) {
         Reviews · <span className="reviews__amount">{reviews.length}</span>
       </h2>
       <ReviewList reviews={reviews} />
-      {isAuth && <ReviewsForm />}
+      {isAuth && <ReviewsForm offerId={offerId} />}
     </section>
   );
 }

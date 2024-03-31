@@ -95,7 +95,11 @@ function OfferPage() {
             <div className="offer__description">
               <p className="offer__text">{offerPage.description}</p>
             </div>
-            <Reviews extraClassName="offer__reviews" reviews={reviews} />
+            <Reviews
+              extraClassName="offer__reviews"
+              reviews={reviews}
+              offerId={offerPage.id}
+            />
           </div>
         </div>
         <Map
