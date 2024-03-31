@@ -12,7 +12,7 @@ type FavoriteButtonProps = {
   width?: number;
 };
 
-export enum Default {
+enum Default {
   HeightCoefficient = 18 / 17,
 }
 
