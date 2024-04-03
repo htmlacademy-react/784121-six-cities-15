@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
-- Студент: [Александр Смирнов](https://up.htmlacademy.ru/react/15/user/784121).
-- Наставник: [Максим Иванов](https://htmlacademy.ru/profile/id342945).
+- Студент: [Александр Смирнов](https://up.htmlacademy.ru/react/15/user/784121)
+- Наставник: [Максим Иванов](https://htmlacademy.ru/profile/id342945)
 
 ---
 

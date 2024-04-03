@@ -4,9 +4,10 @@ type TRatingInputProps = {
   value: number;
   onChange: ({ target }: ChangeEvent<HTMLInputElement>) => void;
   title: string;
+  checked: boolean;
 };
 
-function RatingInput({ value, onChange, title }: TRatingInputProps) {
+function RatingInput({ value, onChange, title, checked }: TRatingInputProps) {
   return (
     <>
       <input
@@ -16,6 +17,7 @@ function RatingInput({ value, onChange, title }: TRatingInputProps) {
         id={`${value}-stars`}
         type="radio"
         onChange={onChange}
+        checked={checked}
       />
       <label
         htmlFor={`${value}-stars`}

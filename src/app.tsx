@@ -19,7 +19,7 @@ import { favoritesActions } from './store/slices/favorites';
 
 function App() {
   const dispatch = useAppDispatch();
-  const status = useAppSelector(offersSelectors.offersStatus);
+  const offersStatus = useAppSelector(offersSelectors.offersStatus);
   const token = getToken();
 
   useEffect(() => {
@@ -30,8 +30,10 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(favoritesActions.fetchFavorites());
-  }, [dispatch]);
+    if (token) {
+      dispatch(favoritesActions.fetchFavorites());
+    }
+  }, [dispatch, token]);
 
   useEffect(() => {
     if (token) {
@@ -39,7 +41,7 @@ function App() {
     }
   }, [dispatch, token]);
 
-  if (status === RequestStatus.Loading) {
+  if (offersStatus === RequestStatus.Loading) {
     return <Spinner />;
   }
 
