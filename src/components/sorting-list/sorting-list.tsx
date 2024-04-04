@@ -1,6 +1,7 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { SORT_OPTIONS, SortOption } from '../const';
+import useBoolean from '../../hooks/use-boolean';
 
 type TSortingListProps = {
   current: SortOption;
@@ -8,26 +9,29 @@ type TSortingListProps = {
 };
 
 function SortingList({ current, setter }: TSortingListProps) {
-  const [isOpened, setOpen] = useState(false);
+  const { isOn, off, toggle } = useBoolean(false);
 
   const selectedOption = SORT_OPTIONS[current];
 
-  const onSortListOpenClick = (evt: React.MouseEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    const target = evt.target as HTMLElement;
+  useEffect(() => {
+    if (isOn) {
+      const onEscKeyDown = (evt: KeyboardEvent) => {
+        if (evt.key === 'Escape' || evt.key === 'Esc') {
+          evt.preventDefault();
+          off();
+        }
+      };
 
-    if (target.closest('.places__sorting') && target.tagName !== 'LI') {
-      setOpen((prevState) => !prevState);
+      document.addEventListener('keydown', onEscKeyDown);
+
+      return () => {
+        document.removeEventListener('keydown', onEscKeyDown);
+      };
     }
-  };
+  }, [isOn, off]);
 
   return (
-    <form
-      className="places__sorting"
-      action="#"
-      method="get"
-      onClick={onSortListOpenClick}
-    >
+    <form className="places__sorting" action="#" method="get" onClick={toggle}>
       <span className="places__sorting-caption">Sort by&nbsp;</span>
       <span className="places__sorting-type" tabIndex={0}>
         {selectedOption}
@@ -38,14 +42,13 @@ function SortingList({ current, setter }: TSortingListProps) {
       <ul
         className={clsx(
           'places__options places__options--custom',
-          isOpened && 'places__options--opened'
+          isOn && 'places__options--opened'
         )}
       >
         {SORT_OPTIONS.map((option, index) => (
           <li
             key={option}
             onClick={() => {
-              setOpen(false);
               setter(index);
             }}
             className={clsx(
