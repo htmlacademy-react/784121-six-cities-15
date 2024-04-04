@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Offer } from '../../types/offer';
 
 type TOfferGoodsProps = {
@@ -16,4 +17,4 @@ function OfferGoods({ offer }: TOfferGoodsProps) {
   );
 }
 
-export default OfferGoods;
+export default memo(OfferGoods);

@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 type TGalleryProps = {
   images: string[];
 };
@@ -16,4 +18,4 @@ function Gallery({ images }: TGalleryProps) {
   );
 }
 
-export default Gallery;
+export default memo(Gallery);
