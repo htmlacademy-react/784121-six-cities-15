@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RequestStatus } from '../../components/const';
 import { Offer } from '../../types/offer';
 import { fetchNearBy, fetchOffer } from '../thunks/offers';
@@ -22,6 +22,12 @@ export const offerSlice = createSlice({
     clear: (state) => {
       state.info = null;
       state.nearby = [];
+    },
+    updateOffer: (state, action: PayloadAction<string>) => {
+      state.info =
+        state.info?.id === action.payload
+          ? { ...state.info, isFavorite: !state.info?.isFavorite }
+          : state.info;
     },
   },
   extraReducers: (builder) => {

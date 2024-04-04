@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { RequestStatus } from '../components/const';
 import Spinner from '../components/spinner';
 import { Offer } from '../types/offer';
+import FavoriteButton from '../components/favorites-button';
 
 function OfferPage() {
   const dispatch = useAppDispatch();
@@ -60,12 +61,12 @@ function OfferPage() {
             />
             <div className="offer__name-wrapper">
               <h1 className="offer__name">{offerPage.title}</h1>
-              <button className="offer__bookmark-button button" type="button">
-                <svg className="offer__bookmark-icon" width={31} height={33}>
-                  <use xlinkHref="#icon-bookmark" />
-                </svg>
-                <span className="visually-hidden">To bookmarks</span>
-              </button>
+              <FavoriteButton
+                bemBlock="offer"
+                width={31}
+                offerId={offerPage.id}
+                isFavorite={offerPage.isFavorite}
+              />
             </div>
             <Rating rating={offerPage.rating} extraClassName="offer" />
             <ul className="offer__features">
