@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import { RATING, RequestStatus } from '../const';
 import RatingInput from '../rating-input';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -13,6 +13,13 @@ function ReviewsForm({ offerId }: { offerId: string }) {
   });
   const dispatch = useAppDispatch();
   const commentStatus = useAppSelector(reviewsSelectors.reviewStatus);
+
+  const onInputChange = useCallback(
+    ({ target }: ChangeEvent<HTMLInputElement>) => {
+      setUserAnswer({ ...userAnswer, stars: Number(target.value) });
+    },
+    [userAnswer]
+  );
 
   const onFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -55,9 +62,7 @@ function ReviewsForm({ offerId }: { offerId: string }) {
             key={item.stars}
             value={item.stars}
             title={item.title}
-            onChange={({ target }: ChangeEvent<HTMLInputElement>) => {
-              setUserAnswer({ ...userAnswer, stars: Number(target.value) });
-            }}
+            onChange={onInputChange}
             checked={item.stars === userAnswer.stars}
           />
         ))}

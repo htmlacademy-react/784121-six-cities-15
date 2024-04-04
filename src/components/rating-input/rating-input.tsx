@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, memo } from 'react';
 
 type TRatingInputProps = {
   value: number;
@@ -32,4 +32,4 @@ function RatingInput({ value, onChange, title, checked }: TRatingInputProps) {
   );
 }
 
-export default RatingInput;
+export default memo(RatingInput);

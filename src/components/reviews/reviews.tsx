@@ -3,6 +3,7 @@ import ReviewsForm from '../reviews-form';
 import { Review } from '../../types/review';
 import ReviewList from '../review-list';
 import { useAuth } from '../../hooks/user-auth';
+import { memo } from 'react';
 
 type TReviewProps = {
   extraClassName?: string;
@@ -24,4 +25,4 @@ function Reviews({ extraClassName, reviews, offerId }: TReviewProps) {
   );
 }
 
-export default Reviews;
+export default memo(Reviews);

@@ -3,6 +3,7 @@ import { CITIES } from '../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { CityName } from '../../types/city';
 import { offersActions, offersSelectors } from '../../store/slices/offers';
+import { memo } from 'react';
 
 function Locations() {
   const currentCity = useAppSelector(offersSelectors.city);
@@ -38,4 +39,4 @@ function Locations() {
   );
 }
 
-export default Locations;
+export default memo(Locations);

@@ -7,6 +7,7 @@ import { Size } from '../../types/size';
 import { getImageSize, getRating } from '../utils';
 import { Offer } from '../../types/offer';
 import FavoriteButton from '../favorites-button';
+import { memo } from 'react';
 
 type TCardProps = {
   offer: Offer;
@@ -72,4 +73,4 @@ function Card({
   );
 }
 
-export default Card;
+export default memo(Card);

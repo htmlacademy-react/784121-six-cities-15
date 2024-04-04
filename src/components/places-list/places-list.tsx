@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Offer } from '../../types/offer';
 import Card from '../card';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { SortOption } from '../const';
 import PlacesListEmpty from '../places-list-empty/places-list-empty';
 import Map from '../map';
@@ -24,16 +24,19 @@ function PlacesList({
   const [activeSort, setActiveSort] = useState(SortOption.Popular);
   const dispatch = useAppDispatch();
 
-  const onCardHover = (evt: React.MouseEvent<HTMLElement>) => {
-    const target = evt.currentTarget;
-    const dataId = target.dataset.id ?? null;
+  const onCardHover = useCallback(
+    (evt: React.MouseEvent<HTMLElement>) => {
+      const target = evt.currentTarget;
+      const dataId = target.dataset.id ?? null;
 
-    dispatch(offersActions.setActiveId(dataId));
-  };
+      dispatch(offersActions.setActiveId(dataId));
+    },
+    [dispatch]
+  );
 
-  const onCardLeave = () => {
+  const onCardLeave = useCallback(() => {
     dispatch(offersActions.setActiveId(null));
-  };
+  }, [dispatch]);
 
   const isEmpty = currentOffers.length === 0;
   let sortedOffers = currentOffers;

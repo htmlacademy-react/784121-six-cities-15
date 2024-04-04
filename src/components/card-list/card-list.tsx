@@ -3,6 +3,7 @@ import { Offer } from '../../types/offer';
 import Card from '../card';
 import { useAppDispatch } from '../../hooks';
 import { offersActions } from '../../store/slices/offers';
+import { memo, useCallback } from 'react';
 
 type TPlacesListProps = {
   extraClassName?: string;
@@ -12,16 +13,19 @@ type TPlacesListProps = {
 function CardList({ extraClassName, offers }: TPlacesListProps) {
   const dispatch = useAppDispatch();
 
-  const onCardHover = (evt: React.MouseEvent<HTMLElement>) => {
-    const target = evt.currentTarget;
-    const dataId = target.dataset.id ?? null;
+  const onCardHover = useCallback(
+    (evt: React.MouseEvent<HTMLElement>) => {
+      const target = evt.currentTarget;
+      const dataId = target.dataset.id ?? null;
 
-    dispatch(offersActions.setActiveId(dataId));
-  };
+      dispatch(offersActions.setActiveId(dataId));
+    },
+    [dispatch]
+  );
 
-  const onCardLeave = () => {
+  const onCardLeave = useCallback(() => {
     dispatch(offersActions.setActiveId(null));
-  };
+  }, [dispatch]);
 
   return (
     <div className={clsx(extraClassName, 'places__list')}>
@@ -37,4 +41,4 @@ function CardList({ extraClassName, offers }: TPlacesListProps) {
   );
 }
 
-export default CardList;
+export default memo(CardList);

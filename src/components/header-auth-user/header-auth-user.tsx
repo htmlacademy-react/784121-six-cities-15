@@ -4,15 +4,16 @@ import { AppRoutes } from '../const';
 import { userActions } from '../../store/slices/user';
 import { useAppDispatch } from '../../hooks';
 import { User } from '../../types/user';
+import { memo, useCallback } from 'react';
 
 function HeaderAuthUser({ user }: { user: User }) {
   const dispatch = useAppDispatch();
 
   const favoritesCount = useFavoriteCount();
 
-  const logout = () => {
+  const logout = useCallback(() => {
     dispatch(userActions.logout());
-  };
+  }, [dispatch]);
 
   return (
     <>
@@ -37,4 +38,4 @@ function HeaderAuthUser({ user }: { user: User }) {
   );
 }
 
-export default HeaderAuthUser;
+export default memo(HeaderAuthUser);

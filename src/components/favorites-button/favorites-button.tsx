@@ -4,6 +4,10 @@ import { favoritesActions } from '../../store/slices/favorites';
 import { getToken } from '../../services/token';
 import { toast } from 'react-toastify';
 import { offersActions } from '../../store/slices/offers';
+import { memo, useCallback } from 'react';
+import { AppRoutes } from '../const';
+import { useNavigate } from 'react-router-dom';
+import { offerActions } from '../../store/slices/offer';
 
 type FavoriteButtonProps = {
   bemBlock: 'offer' | 'place-card';
@@ -23,29 +27,35 @@ function FavoriteButton({
   width = 18,
 }: FavoriteButtonProps) {
   const dispatch = useAppDispatch();
+  const navigateToLogin = useNavigate();
+
   const token = getToken();
   const bookmarksLabel = `${isFavorite ? 'In' : 'To'} bookmarks}`;
   const buttonClass = `${bemBlock}__bookmark-button`;
+  const iconClass = `${bemBlock}__bookmark-icon`;
   const favoritesClass = clsx(
     buttonClass,
     { [`${buttonClass}--active`]: isFavorite },
     'button'
   );
   const height = width * Default.HeightCoefficient;
-  const onFavoriteChange = () => {
+
+  const onFavoriteChange = useCallback(() => {
     if (!token) {
       toast('Гости не могут добавить в избранное!');
-      return;
+      return navigateToLogin(AppRoutes.Login);
     }
+
     dispatch(offersActions.updateOffers(offerId));
+    dispatch(offerActions.updateOffer(offerId));
     dispatch(
       favoritesActions.changeFavorites({ offerId, status: Number(!isFavorite) })
     );
-  };
+  }, [dispatch, isFavorite, navigateToLogin, offerId, token]);
 
   return (
     <button className={favoritesClass} type="button" onClick={onFavoriteChange}>
-      <svg className="place-card__bookmark-icon" width={width} height={height}>
+      <svg className={iconClass} width={width} height={height}>
         <use xlinkHref="#icon-bookmark" />
       </svg>
       <span className="visually-hidden">{bookmarksLabel}</span>
@@ -53,4 +63,4 @@ function FavoriteButton({
   );
 }
 
-export default FavoriteButton;
+export default memo(FavoriteButton);
